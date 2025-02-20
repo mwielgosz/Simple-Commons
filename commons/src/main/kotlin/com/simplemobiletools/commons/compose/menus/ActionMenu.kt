@@ -179,10 +179,8 @@ internal fun ActionIconButton(
                 onClick = onClick,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = rememberRipple(
-                    bounded = false,
-                    radius = 40.dp / 2
-                ),
+                indication = ripple(bounded = false,
+                    radius = 40.dp / 2),
                 onLongClick = {
                     hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
                 }

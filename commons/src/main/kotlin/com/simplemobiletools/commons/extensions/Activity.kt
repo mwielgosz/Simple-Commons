@@ -104,7 +104,7 @@ fun Activity.showDonateOrUpgradeDialog() {
 
 fun Activity.isAppInstalledOnSDCard(): Boolean = try {
     val applicationInfo = packageManager.getPackageInfo(packageName, 0).applicationInfo
-    (applicationInfo.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE) == ApplicationInfo.FLAG_EXTERNAL_STORAGE
+    (applicationInfo?.flags?.and(ApplicationInfo.FLAG_EXTERNAL_STORAGE)) == ApplicationInfo.FLAG_EXTERNAL_STORAGE
 } catch (e: Exception) {
     false
 }
@@ -1216,6 +1216,7 @@ fun BaseSimpleActivity.getFileOutputStream(fileDirItem: FileDirItem, allowCreati
                 callback.invoke(applicationContext.contentResolver.openOutputStream(uri, "wt"))
             }
         }
+
         needsStupidWritePermissions(fileDirItem.path) -> {
             handleSAFDialog(fileDirItem.path) {
                 if (!it) {
@@ -1250,6 +1251,7 @@ fun BaseSimpleActivity.getFileOutputStream(fileDirItem: FileDirItem, allowCreati
                 }
             }
         }
+
         isAccessibleWithSAFSdk30(fileDirItem.path) -> {
             handleSAFDialogSdk30(fileDirItem.path) {
                 if (!it) {
@@ -1269,6 +1271,7 @@ fun BaseSimpleActivity.getFileOutputStream(fileDirItem: FileDirItem, allowCreati
                 )
             }
         }
+
         isRestrictedWithSAFSdk30(fileDirItem.path) -> {
             callback.invoke(
                 try {
@@ -1279,6 +1282,7 @@ fun BaseSimpleActivity.getFileOutputStream(fileDirItem: FileDirItem, allowCreati
                 } ?: createCasualFileOutputStream(this, targetFile)
             )
         }
+
         else -> {
             callback.invoke(createCasualFileOutputStream(this, targetFile))
         }
@@ -1546,6 +1550,7 @@ fun Activity.showPickSecondsDialog(
                     callback(it)
                 }
             }
+
             -3 -> {
                 TimePickerDialog(
                     this, getTimePickerDialogTheme(),
@@ -1553,6 +1558,7 @@ fun Activity.showPickSecondsDialog(
                     curSeconds / 3600, curSeconds % 3600, baseConfig.use24HourFormat
                 ).show()
             }
+
             else -> {
                 callback(it as Int)
             }

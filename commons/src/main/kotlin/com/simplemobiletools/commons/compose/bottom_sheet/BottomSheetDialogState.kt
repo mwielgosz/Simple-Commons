@@ -105,7 +105,7 @@ class BottomSheetDialogState(
                 modifier = modifier,
                 onDismissRequest = ::close,
                 sheetState = bottomSheetState,
-                windowInsets = windowInsets,
+                //windowInserts = windowInsets,
                 dragHandle = {}, //leave empty as we provide our own dialog surfaces
                 shape = bottomSheetDialogShape,
                 containerColor = dialogContainerColor,

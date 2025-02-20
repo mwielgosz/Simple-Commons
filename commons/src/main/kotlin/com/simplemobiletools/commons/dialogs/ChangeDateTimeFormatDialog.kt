@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,7 +25,7 @@ import com.simplemobiletools.commons.compose.alert_dialog.DialogSurface
 import com.simplemobiletools.commons.compose.alert_dialog.rememberAlertDialogState
 import com.simplemobiletools.commons.compose.components.RadioGroupDialogComponent
 import com.simplemobiletools.commons.compose.extensions.MyDevices
-import com.simplemobiletools.commons.compose.extensions.NoRippleTheme
+import com.simplemobiletools.commons.compose.extensions.noRippleTheme
 import com.simplemobiletools.commons.compose.extensions.rememberMutableInteractionSource
 import com.simplemobiletools.commons.compose.settings.SettingsHorizontalDivider
 import com.simplemobiletools.commons.compose.theme.AppThemeSurface
@@ -37,9 +36,9 @@ import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
+import kotlinx.collections.immutable.toImmutableList
 import java.util.Calendar
 import java.util.Locale
-import kotlinx.collections.immutable.toImmutableList
 
 class ChangeDateTimeFormatDialog(val activity: Activity, val callback: () -> Unit) {
     private val view = DialogChangeDateTimeFormatBinding.inflate(activity.layoutInflater, null, false)
@@ -168,7 +167,11 @@ fun ChangeDateTimeFormatAlertDialog(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = SimpleTheme.dimens.padding.extraLarge, bottom = SimpleTheme.dimens.padding.extraLarge, end = SimpleTheme.dimens.padding.extraLarge)
+                        .padding(
+                            top = SimpleTheme.dimens.padding.extraLarge,
+                            bottom = SimpleTheme.dimens.padding.extraLarge,
+                            end = SimpleTheme.dimens.padding.extraLarge
+                        )
                         .align(Alignment.BottomStart)
                 ) {
                     TextButton(onClick = {
@@ -238,7 +241,7 @@ internal fun DialogCheckBoxWithRadioAlignmentComponent(
                 textAlign = TextAlign.End
             )
         }
-        CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+        CompositionLocalProvider(LocalRippleConfiguration provides noRippleTheme()) {
             Checkbox(
                 checked = initialValue,
                 onCheckedChange = { onChange?.invoke(it) },

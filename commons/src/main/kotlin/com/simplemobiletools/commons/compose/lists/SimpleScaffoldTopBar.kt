@@ -160,10 +160,9 @@ fun SimpleNavigationIcon(
             .padding(start = SimpleTheme.dimens.padding.medium)
             .clip(RoundedCornerShape(50))
             .clickable(
-                navigationIconInteractionSource, rememberRipple(
+                navigationIconInteractionSource, ripple(
                     color = SimpleTheme.colorScheme.onSurface,
-                    bounded = true
-                )
+                    bounded = true)
             ) { goBack() }
     ) {
         SimpleBackIcon(iconColor)

@@ -1,7 +1,7 @@
 package com.simplemobiletools.commons.compose.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -74,7 +74,7 @@ internal fun Theme(
         shapes = Shapes,
         content = {
             CompositionLocalProvider(
-                LocalRippleTheme provides DynamicThemeRipple,
+                LocalRippleConfiguration provides dynamicThemeRipple(),
                 LocalTheme provides theme,
                 LocalDimensions provides dimensions
             ) {

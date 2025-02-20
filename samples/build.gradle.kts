@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinAndroid)
 }
 android {
@@ -42,10 +43,6 @@ android {
         buildConfig = true
         viewBinding = true
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -1,5 +1,8 @@
+import org.gradle.kotlin.dsl.libs
+
 plugins {
     alias(libs.plugins.android).apply(false)
+    alias(libs.plugins.composeCompiler).apply(false)
     alias(libs.plugins.kotlinAndroid).apply(false)
     alias(libs.plugins.ksp).apply(false)
     alias(libs.plugins.parcelize).apply(false)

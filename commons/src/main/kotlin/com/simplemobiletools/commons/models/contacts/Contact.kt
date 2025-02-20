@@ -13,26 +13,26 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Contact(
     var id: Int,
-    var prefix: String= "",
-    var firstName: String= "",
-    var middleName: String= "",
-    var surname: String= "",
-    var suffix: String= "",
-    var nickname: String= "",
-    var photoUri: String= "",
+    var prefix: String = "",
+    var firstName: String = "",
+    var middleName: String = "",
+    var surname: String = "",
+    var suffix: String = "",
+    var nickname: String = "",
+    var photoUri: String = "",
     var phoneNumbers: ArrayList<PhoneNumber> = arrayListOf(),
     var emails: ArrayList<Email> = arrayListOf(),
     var addresses: ArrayList<Address> = arrayListOf(),
     var events: ArrayList<Event> = arrayListOf(),
-    var source: String= "",
+    var source: String = "",
     var starred: Int = 0,
     var contactId: Int,
-    var thumbnailUri: String= "",
+    var thumbnailUri: String = "",
     @Contextual
     var photo: Bitmap? = null,
-    var notes: String= "",
+    var notes: String = "",
     var groups: ArrayList<Group> = arrayListOf(),
-    var organization: Organization = Organization("",""),
+    var organization: Organization = Organization("", ""),
     var websites: ArrayList<String> = arrayListOf(),
     var IMs: ArrayList<IM> = arrayListOf(),
     var mimetype: String = "",
@@ -41,7 +41,8 @@ data class Contact(
     val rawId = id
     val name = getNameToDisplay()
     var birthdays = events.filter { it.type == ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY }.map { it.value }.toMutableList() as ArrayList<String>
-    var anniversaries = events.filter { it.type == ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY }.map { it.value }.toMutableList() as ArrayList<String>
+    var anniversaries =
+        events.filter { it.type == ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY }.map { it.value }.toMutableList() as ArrayList<String>
 
     companion object {
         var sorting = 0
@@ -55,21 +56,25 @@ data class Contact(
                 val secondString = other.firstName.normalizeString()
                 compareUsingStrings(firstString, secondString, other)
             }
+
             sorting and SORT_BY_MIDDLE_NAME != 0 -> {
                 val firstString = middleName.normalizeString()
                 val secondString = other.middleName.normalizeString()
                 compareUsingStrings(firstString, secondString, other)
             }
+
             sorting and SORT_BY_SURNAME != 0 -> {
                 val firstString = surname.normalizeString()
                 val secondString = other.surname.normalizeString()
                 compareUsingStrings(firstString, secondString, other)
             }
+
             sorting and SORT_BY_FULL_NAME != 0 -> {
                 val firstString = getNameToDisplay().normalizeString()
                 val secondString = other.getNameToDisplay().normalizeString()
                 compareUsingStrings(firstString, secondString, other)
             }
+
             else -> compareUsingIds(other)
         }
 
@@ -171,7 +176,7 @@ data class Contact(
         return copy(
             id = 0,
             prefix = "",
-            firstName = getNameToDisplay().toLowerCase(),
+            firstName = getNameToDisplay().lowercase(),
             middleName = "",
             surname = "",
             suffix = "",
