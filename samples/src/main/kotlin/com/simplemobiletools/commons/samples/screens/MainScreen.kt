@@ -33,10 +33,7 @@ fun MainScreen(
     openColorCustomization: () -> Unit,
     manageBlockedNumbers: () -> Unit,
     showComposeDialogs: () -> Unit,
-    openTestButton: () -> Unit,
-    showMoreApps: Boolean,
     openAbout: () -> Unit,
-    moreAppsFromUs: () -> Unit,
 ) {
     SimpleScaffold(
         customTopBar = { scrolledColor: Color, _: MutableInteractionSource, scrollBehavior: TopAppBarScrollBehavior, statusBarColor: Int, colorTransitionFraction: Float, contrastColor: Color ->
@@ -45,9 +42,7 @@ fun MainScreen(
                 actions = {
                     val actionMenus = remember {
                         buildActionMenuItems(
-                            showMoreApps = showMoreApps,
-                            openAbout = openAbout,
-                            moreAppsFromUs = moreAppsFromUs
+                            openAbout = openAbout
                         )
                     }
                     var isMenuVisible by remember { mutableStateOf(false) }
@@ -91,19 +86,12 @@ fun MainScreen(
             ) {
                 Text("Compose dialogs")
             }
-            Button(
-                onClick = openTestButton
-            ) {
-                Text("Test button")
-            }
         }
     }
 }
 
 private fun buildActionMenuItems(
-    showMoreApps: Boolean,
     openAbout: () -> Unit,
-    moreAppsFromUs: () -> Unit
 ): ImmutableList<ActionItem> {
     val list = mutableListOf<ActionItem>()
     list += ActionItem(
@@ -112,13 +100,6 @@ private fun buildActionMenuItems(
         doAction = openAbout,
         overflowMode = OverflowMode.NEVER_OVERFLOW
     )
-    if (showMoreApps) {
-        list += ActionItem(
-                R.string.more_apps_from_us,
-                doAction = moreAppsFromUs,
-                overflowMode = OverflowMode.ALWAYS_OVERFLOW
-            )
-    }
     return list.toImmutableList()
 }
 
@@ -130,10 +111,7 @@ private fun MainScreenPreview() {
             openColorCustomization = {},
             manageBlockedNumbers = {},
             showComposeDialogs = {},
-            openTestButton = {},
-            showMoreApps = true,
             openAbout = {},
-            moreAppsFromUs = {}
         )
     }
 }

@@ -9,7 +9,6 @@ import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isOreoMr1Plus
@@ -17,9 +16,6 @@ import com.simplemobiletools.commons.models.Release
 
 fun ComponentActivity.appLaunchedCompose(
     appId: String,
-    showUpgradeDialog: () -> Unit,
-    showDonateDialog: () -> Unit,
-    showRateUsDialog: () -> Unit
 ) {
     baseConfig.internalStoragePath = getInternalStoragePath()
     updateSDCardPath()
@@ -55,21 +51,6 @@ fun ComponentActivity.appLaunchedCompose(
     }
 
     baseConfig.appRunCount++
-    if (baseConfig.appRunCount % 30 == 0 && !isAProApp()) {
-        if (!resources.getBoolean(R.bool.hide_google_relations)) {
-            if (getCanAppBeUpgraded()) {
-                showUpgradeDialog()
-            } else if (!isOrWasThankYouInstalled()) {
-                showDonateDialog()
-            }
-        }
-    }
-
-    if (baseConfig.appRunCount % 40 == 0 && !baseConfig.wasAppRated) {
-        if (!resources.getBoolean(R.bool.hide_google_relations)) {
-            showRateUsDialog()
-        }
-    }
 }
 
 fun ComponentActivity.checkWhatsNewCompose(releases: List<Release>, currVersion: Int, showWhatsNewDialog: (List<Release>) -> Unit) {
@@ -99,11 +80,7 @@ const val FAKE_VERSION_APP_LABEL =
 fun Context.fakeVersionCheck(
     showConfirmationDialog: () -> Unit
 ) {
-    if (!packageName.startsWith("com.simplemobiletools.", true)) {
-        if ((0..50).random() == 10 || baseConfig.appRunCount % 100 == 0) {
-            showConfirmationDialog()
-        }
-    }
+    // Fake version check removed
 }
 
 fun ComponentActivity.appOnSdCardCheckCompose(

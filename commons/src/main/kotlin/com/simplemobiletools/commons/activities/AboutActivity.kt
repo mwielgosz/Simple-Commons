@@ -45,7 +45,6 @@ class AboutActivity : ComponentActivity() {
             val resources = context.resources
             AppThemeSurface {
                 val showExternalLinks = remember { !resources.getBoolean(R.bool.hide_all_external_links) }
-                val showGoogleRelations = remember { !resources.getBoolean(R.bool.hide_google_relations) }
                 val onEmailClickAlertDialogState = getOnEmailClickAlertDialogState()
                 val rateStarsAlertDialogState = getRateStarsAlertDialogState()
                 val onRateUsClickAlertDialogState = getOnRateUsClickAlertDialogState(rateStarsAlertDialogState::show)
@@ -53,7 +52,7 @@ class AboutActivity : ComponentActivity() {
                     goBack = ::finish,
                     helpUsSection = {
                         val showHelpUsSection =
-                            remember { showGoogleRelations || !showExternalLinks }
+                            remember { !showExternalLinks }
                         HelpUsSection(
                             onRateUsClick = {
                                 onRateUsClick(
@@ -90,8 +89,6 @@ class AboutActivity : ComponentActivity() {
                 ) {
                     val (showWebsite, fullVersion) = showWebsiteAndFullVersion(resources, showExternalLinks)
                     OtherSection(
-                        showMoreApps = showGoogleRelations,
-                        onMoreAppsClick = ::launchMoreAppsFromUsIntent,
                         showWebsite = showWebsite,
                         onWebsiteClick = ::onWebsiteClick,
                         showPrivacyPolicy = showExternalLinks,

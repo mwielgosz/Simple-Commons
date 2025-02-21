@@ -73,8 +73,6 @@ internal fun HelpUsSection(
 
 @Composable
 internal fun OtherSection(
-    showMoreApps: Boolean,
-    onMoreAppsClick: () -> Unit,
     onWebsiteClick: () -> Unit,
     showWebsite: Boolean,
     showPrivacyPolicy: Boolean,
@@ -86,13 +84,6 @@ internal fun OtherSection(
     SettingsGroup(title = {
         SettingsTitleTextComponent(text = stringResource(id = R.string.other), modifier = startingTitlePadding)
     }) {
-        if (showMoreApps) {
-            TwoLinerTextItem(
-                click = onMoreAppsClick,
-                text = stringResource(id = R.string.more_apps_from_us),
-                icon = R.drawable.ic_heart_vector
-            )
-        }
         if (showWebsite) {
             TwoLinerTextItem(
                 click = onWebsiteClick,
@@ -242,8 +233,6 @@ private fun AboutScreenPreview() {
             }
         ) {
             OtherSection(
-                showMoreApps = true,
-                onMoreAppsClick = {},
                 onWebsiteClick = {},
                 showWebsite = true,
                 showPrivacyPolicy = true,

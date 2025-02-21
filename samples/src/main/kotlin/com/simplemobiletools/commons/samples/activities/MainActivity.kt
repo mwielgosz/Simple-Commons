@@ -9,16 +9,12 @@ import androidx.compose.runtime.LaunchedEffect
 import com.simplemobiletools.commons.activities.AboutActivity
 import com.simplemobiletools.commons.activities.CustomizationActivity
 import com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity
-import com.simplemobiletools.commons.compose.alert_dialog.AlertDialogState
 import com.simplemobiletools.commons.compose.alert_dialog.rememberAlertDialogState
 import com.simplemobiletools.commons.compose.extensions.*
 import com.simplemobiletools.commons.compose.theme.AppThemeSurface
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.DonateAlertDialog
 import com.simplemobiletools.commons.dialogs.RateStarsAlertDialog
 import com.simplemobiletools.commons.extensions.hideKeyboard
-import com.simplemobiletools.commons.extensions.launchMoreAppsFromUsIntent
-import com.simplemobiletools.commons.extensions.launchViewIntent
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.samples.BuildConfig
@@ -42,19 +38,7 @@ class MainActivity : ComponentActivity() {
                     showComposeDialogs = {
                         startActivity(Intent(this@MainActivity, TestDialogActivity::class.java))
                     },
-                    openTestButton = {
-                        ConfirmationDialog(
-                            this@MainActivity,
-                            FAKE_VERSION_APP_LABEL,
-                            positive = com.simplemobiletools.commons.R.string.ok,
-                            negative = 0
-                        ) {
-                            launchViewIntent(DEVELOPER_PLAY_STORE_URL)
-                        }
-                    },
-                    showMoreApps = showMoreApps,
-                    openAbout = ::launchAbout,
-                    moreAppsFromUs = ::launchMoreAppsFromUsIntent
+                    openAbout = ::launchAbout
                 )
                 AppLaunched()
             }
@@ -62,16 +46,10 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun AppLaunched(
-        donateAlertDialogState: AlertDialogState = getDonateAlertDialogState(),
-        rateStarsAlertDialogState: AlertDialogState = getRateStarsAlertDialogState(),
-    ) {
+    private fun AppLaunched() {
         LaunchedEffect(Unit) {
             appLaunchedCompose(
                 appId = BuildConfig.APPLICATION_ID,
-                showDonateDialog = donateAlertDialogState::show,
-                showRateUsDialog = rateStarsAlertDialogState::show,
-                showUpgradeDialog = {}
             )
         }
     }
