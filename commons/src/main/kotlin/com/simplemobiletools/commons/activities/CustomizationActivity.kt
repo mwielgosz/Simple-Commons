@@ -5,6 +5,11 @@ import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.databinding.ActivityCustomizationBinding
 import com.simplemobiletools.commons.dialogs.*
@@ -47,6 +52,7 @@ class CustomizationActivity : BaseSimpleActivity() {
     private val binding by viewBinding(ActivityCustomizationBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -98,6 +104,18 @@ class CustomizationActivity : BaseSimpleActivity() {
 
         if (resources.getBoolean(R.bool.hide_google_relations) && !isThankYou) {
             binding.applyToAllHolder.beGone()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<MarginLayoutParams> {
+                topMargin = insets.top
+                leftMargin = insets.left
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+
+            WindowInsetsCompat.CONSUMED
         }
     }
 
