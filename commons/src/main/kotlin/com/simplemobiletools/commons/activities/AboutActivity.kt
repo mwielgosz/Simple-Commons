@@ -118,7 +118,7 @@ class AboutActivity : ComponentActivity() {
         if (baseConfig.appId.removeSuffix(".debug").endsWith(".pro")) {
             version += " ${getString(R.string.pro)}"
         }
-        val fullVersion = remember { String.format(getString(R.string.version_placeholder, version)) }
+        val fullVersion = remember { String.format(getString(R.string.version_placeholder, version), version) }
         return Pair(showWebsite, fullVersion)
     }
 
@@ -192,7 +192,8 @@ class AboutActivity : ComponentActivity() {
     }
 
     private fun launchEmailIntent() {
-        val appVersion = String.format(getString(R.string.app_version, intent.getStringExtra(APP_VERSION_NAME)))
+        var version = intent.getStringExtra(APP_VERSION_NAME) ?: ""
+        val appVersion = String.format(getString(R.string.app_version, intent.getStringExtra(APP_VERSION_NAME)), version)
         val deviceOS = String.format(getString(R.string.device_os), Build.VERSION.RELEASE)
         val newline = "\n"
         val separator = "------------------------------"
